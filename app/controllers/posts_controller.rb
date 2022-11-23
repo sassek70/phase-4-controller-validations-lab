@@ -11,7 +11,11 @@ class PostsController < ApplicationController
 
     post.update(post_params)
 
-    render json: post
+    if post.valid?
+      render json: post
+    else
+      render json: {errors: post.errors}, status: :unprocessable_entity
+    end
   end
 
   private
